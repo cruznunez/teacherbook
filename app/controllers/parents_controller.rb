@@ -1,4 +1,5 @@
 class ParentsController < ApplicationController
+  before_action :logged_in?
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
 
   # GET /parents
@@ -28,7 +29,7 @@ class ParentsController < ApplicationController
 
     respond_to do |format|
       if @parent.save
-        format.html { redirect_to @parent, notice: 'Parent was successfully created.' }
+        format.html { redirect_to parents_path, notice: 'Parent was successfully created.' }
         format.json { render :show, status: :created, location: @parent }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class ParentsController < ApplicationController
   def update
     respond_to do |format|
       if @parent.update(parent_params)
-        format.html { redirect_to @parent, notice: 'Parent was successfully updated.' }
+        format.html { redirect_to parents_path, notice: 'Parent was successfully updated.' }
         format.json { render :show, status: :ok, location: @parent }
       else
         format.html { render :edit }
@@ -69,6 +70,14 @@ class ParentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
-      params.require(:parent).permit(:name, :email)
+      params.require(:parent).permit(:name, :email, :kid)
+    end
+
+    def logged_in?
+      if Teacher.find_by_id(session[:user_id])
+        return true
+      else
+        redirect_to root_path, notice: 'You must log in before seeing a parent list.'
+      end
     end
 end
