@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609173016) do
+ActiveRecord::Schema.define(version: 20150609203141) do
 
   create_table "parents", force: :cascade do |t|
     t.string   "name"
@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20150609173016) do
     t.string   "kid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "teacher_id"
   end
+
+  add_index "parents", ["teacher_id"], name: "index_parents_on_teacher_id"
 
   create_table "teachers", force: :cascade do |t|
     t.string   "name"
