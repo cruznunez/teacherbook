@@ -1,11 +1,12 @@
 class ParentsController < ApplicationController
   before_action :logged_in?
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
+  before_action :set_name
 
   # GET /parents
   # GET /parents.json
   def index
-    @parents = Parent.all
+    @parents = Parent.all.select{|parent| parent if parent.teacher_id == session[:user_id]}
   end
 
   # GET /parents/1
@@ -70,7 +71,7 @@ class ParentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def parent_params
-      params.require(:parent).permit(:name, :email, :kid)
+      params.require(:parent).permit(:name, :email, :kid, :teacher_id)
     end
 
     def logged_in?
@@ -79,5 +80,9 @@ class ParentsController < ApplicationController
       else
         redirect_to root_path, notice: 'You must log in before seeing a parent list.'
       end
+    end
+
+    def set_name
+      @name = Teacher.find(session[:user_id]).name
     end
 end

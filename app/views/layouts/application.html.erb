@@ -9,6 +9,11 @@
 <body>
 <%= link_to "Logout", session_logout_path if session[:user_id] %>
 <%= link_to "New Teacher", new_teacher_path unless session[:user_id] %>
+<% if session[:user_id] %>
+  <p>
+    Signed in as: <%= @name %>
+  </p>
+<% end %>
 <p id="notice"><%= notice %></p>
 <%= yield %>
 

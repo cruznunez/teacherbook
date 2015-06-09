@@ -26,7 +26,7 @@ class TeachersController < ApplicationController
   # POST /teachers.json
   def create
     @teacher = Teacher.new(teacher_params)
-
+    @teacher.password = params[:password_digest]
     respond_to do |format|
       if @teacher.save
         session[:user_id] = @teacher.id
@@ -71,7 +71,7 @@ class TeachersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(:name, :email, :password_digest)
+      params.require(:teacher).permit(:name, :email)
     end
 
     def logged_in?

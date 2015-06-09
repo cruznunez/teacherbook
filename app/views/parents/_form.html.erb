@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+  <%= f.hidden_field :teacher_id, :value => session[:user_id] %>
   <div class="field">
     <%= f.label "Kid's name" %><br>
     <%= f.text_field :kid %>
