@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Teacherbook</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<%= link_to "Logout", session_logout_path if session[:user_id] %>
-<%= link_to "New Teacher", new_teacher_path unless session[:user_id] %>
-<% if session[:user_id] %>
-  <p>
-    Signed in as: <%= @name %>
-  </p>
-<% end %>
-<p id="notice"><%= notice %></p>
-<%= yield %>
-
-</body>
+  <head>
+    <title>Teacherbook</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <% if session[:user_id] %>
+      <%= link_to "Edit", "/teachers/#{session[:user_id]}/edit" %>
+      <%= link_to "Logout", session_logout_path %>
+      <p>
+        Signed in as: <%= @teacher.name %>
+      </p>
+    <% else %>
+      <%= link_to "New Teacher", new_teacher_path %>
+    <% end %>
+    <p id="notice"><%= notice %></p>
+    <%= yield %>
+  </body>
 </html>

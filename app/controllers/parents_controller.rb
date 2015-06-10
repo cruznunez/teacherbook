@@ -1,7 +1,7 @@
 class ParentsController < ApplicationController
   before_action :logged_in?
   before_action :set_parent, only: [:show, :edit, :update, :destroy]
-  before_action :set_name
+
 
   # GET /parents
   # GET /parents.json
@@ -82,7 +82,4 @@ class ParentsController < ApplicationController
       end
     end
 
-    def set_name
-      @name = Teacher.find(session[:user_id]).name
-    end
 end

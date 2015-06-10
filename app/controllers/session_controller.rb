@@ -12,6 +12,7 @@ class SessionController < ApplicationController
         flash.now[:notice] = "Invalid password"
       end
     end
+    @teachers = Teacher.all
   end
 
   def logout
